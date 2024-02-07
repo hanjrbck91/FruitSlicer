@@ -8,7 +8,13 @@ public class CutVegetableInput : MonoBehaviour
     private bool isCutting = false;
     [SerializeField] private GameObject[] slicesPosition = new GameObject[5];
     [SerializeField] private GameObject[] slices = new GameObject[5];
+    [SerializeField] private GameObject[] SlicedFoodsPos = new GameObject[3];
+    [SerializeField] private GameObject vegetable;
     int n = 5;
+    int sliceCount = 0;
+
+    [SerializeField] private GameObject KnifePos;
+    [SerializeField] private GameObject KnifeSlidePos;
     void Start()
     {
         // Store the original rotation of the GameObject
@@ -22,6 +28,8 @@ public class CutVegetableInput : MonoBehaviour
         {
             transform.Rotate(0f, 0f, -33f);
             isCutting = true;
+            sliceCount++;
+            print(sliceCount);
         }
 
         // Reset the rotation to its original state
@@ -42,6 +50,21 @@ public class CutVegetableInput : MonoBehaviour
             }
             
         }
+        if(Input.GetKeyDown(KeyCode.LeftArrow) && !isCutting && sliceCount == 5)
+        {
+           // Vector3 iPos = gameObject.transform.position;
+            //Vector3 fPos = new Vector3(0f, 0f, 100f);
+            //transform.Translate(KnifeSlidePos.transform.position);
+            //transform.Translate(KnifePos);
+            transform.position = KnifeSlidePos.transform.position;
+            Invoke("ResetKnifePos", 1);
+            vegetable.transform.position = SlicedFoodsPos[0].gameObject.transform.position;
+        }
+    }
+
+    private void ResetKnifePos()
+    {
+        transform.position = KnifePos.transform.position;   
     }
 
 }

@@ -4,7 +4,11 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Slice
+  - Slice1
+  - Slice2
+  - Slice3
+  - Slice4
+  - Slice5
   layers:
   - Default
   - TransparentFX
