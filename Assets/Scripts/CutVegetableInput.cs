@@ -6,7 +6,9 @@ public class CutVegetableInput : MonoBehaviour
 {
     private Quaternion originalRotation;
     private bool isCutting = false;
-
+    [SerializeField] private GameObject[] slicesPosition = new GameObject[5];
+    [SerializeField] private GameObject[] slices = new GameObject[5];
+    int n = 5;
     void Start()
     {
         // Store the original rotation of the GameObject
@@ -27,6 +29,18 @@ public class CutVegetableInput : MonoBehaviour
         {
             transform.rotation = originalRotation;
             isCutting = false;
+            //slices[].gameObject.transform.position = slicesPosition[i].gameObject.transform.position;
+
+            for(int i = 0; i < n-1; i++)
+            {
+                slices[i] = slices[i+1];
+            }
+            n--;
+            for(int i = 0; i < n; i++)
+            {
+                slices[i].gameObject.transform.position = slicesPosition[i].gameObject.transform.position;
+            }
+            
         }
     }
 
