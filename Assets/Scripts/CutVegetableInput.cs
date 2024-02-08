@@ -9,9 +9,11 @@ public class CutVegetableInput : MonoBehaviour
     [SerializeField] private GameObject[] slicesPosition = new GameObject[5];
     [SerializeField] private GameObject[] slices = new GameObject[5];
     [SerializeField] private GameObject[] SlicedFoodsPos = new GameObject[3];
-    [SerializeField] private GameObject vegetable;
+    [SerializeField] private GameObject[] WholeSlicesToMoveAside;
+    [SerializeField] private GameObject[] diffFoodsToCut;
     int n = 5;
     int sliceCount = 0;
+    int k = 1;
 
     [SerializeField] private GameObject KnifePos;
     [SerializeField] private GameObject KnifeSlidePos;
@@ -19,6 +21,8 @@ public class CutVegetableInput : MonoBehaviour
     {
         // Store the original rotation of the GameObject
         originalRotation = transform.rotation;
+        diffFoodsToCut[Random.Range(0, diffFoodsToCut.Length - 1)].gameObject.SetActive(true);
+
     }
 
     void Update()
@@ -50,15 +54,14 @@ public class CutVegetableInput : MonoBehaviour
             }
             
         }
-        if(Input.GetKeyDown(KeyCode.LeftArrow) && !isCutting && sliceCount == 5)
+        if(Input.GetKeyDown(KeyCode.LeftArrow) && !isCutting && sliceCount % 5 == 0)
         {
-           // Vector3 iPos = gameObject.transform.position;
-            //Vector3 fPos = new Vector3(0f, 0f, 100f);
-            //transform.Translate(KnifeSlidePos.transform.position);
-            //transform.Translate(KnifePos);
             transform.position = KnifeSlidePos.transform.position;
-            Invoke("ResetKnifePos", 1);
-            vegetable.transform.position = SlicedFoodsPos[0].gameObject.transform.position;
+            Invoke("ResetKnifePos", .5f);
+            int arrPos = sliceCount / 5 - 1;
+            WholeSlicesToMoveAside[arrPos].transform.position = SlicedFoodsPos[arrPos].gameObject.transform.position;
+            diffFoodsToCut[k].gameObject.SetActive(true);
+            k++;
         }
     }
 
